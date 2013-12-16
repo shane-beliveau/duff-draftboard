@@ -1,0 +1,189 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>2013 DUFF League Draft</title>
+</head>
+<body>
+	
+	{{> flashes}}
+
+	{{> navigation}}
+
+    <div id="teams" class="large-12 columns">
+    
+        {{> teams}}
+
+    </div>
+
+    <div id="footer" class="large-12 columns">
+        
+        <div class="tab">
+            <a href="#" >
+                <span>+</span> Available Players
+            </a>
+        </div>
+
+        <div class="playerlist-container">
+
+            <ul class="button-group radius side-nav">
+                <li><a href="#" data-list="qb" class="button">QB</a></li>
+                <li><a href="#" data-list="rb" class="button">RB</a></li>
+                <li><a href="#" data-list="wr" class="button">WR</a></li>
+                <li><a href="#" data-list="te" class="button">TE</a></li>
+                <li><a href="#" data-list="k" class="button">K</a></li>
+                <li><a href="#" data-list="def" class="button">DEF</a></li>
+            </ul>
+            
+            {{> players}}
+            
+        </div>
+        
+    </div>
+
+</body>
+
+<template name="flashes">
+	{{#each flashes}}
+	<div id="flash-{{_id}}" class="flash">
+		{{message}}
+	</div>
+	{{/each}}
+</template>
+
+<template name="navigation">
+	<!-- Navigation -->
+	<nav class="top-bar">
+		<ul class="title-area">
+			<!-- Title Area -->
+			<li class="name">
+				<h1>
+				<a href="#">
+					{{> currentpick}}
+				</a>
+				</h1>
+			</li>
+		</ul>
+		<section class="top-bar-section">
+			
+			<ul class="right">
+      			<li class="divider hide-for-small"></li>
+      			<li>
+      				<a id="reset" href="#">Reset</a>
+      			</li>
+      		</ul>
+
+		</section>
+	</nav>
+	<!-- End Top Bar -->
+</template>
+
+<template name="currentpick">
+	{{#each picks}}
+		Rd: {{round}} &bull; Pick: {{pick}} &bull; Overall: {{overall}}
+	{{/each}}
+</template>
+
+<template name="players">
+	{{#if qb}}
+		<ul class="qb players active">
+			{{#each qb}}
+				{{> player-tab}}
+			{{/each}}
+		</ul>
+	{{/if}}
+	{{#if rb}}
+		<ul class="rb players">
+			{{#each rb}}
+				{{> player-tab}}
+			{{/each}}
+		</ul>
+	{{/if}}
+	{{#if wr}}
+		<ul class="wr players">
+			{{#each wr}}
+				{{> player-tab}}
+			{{/each}}
+		</ul>
+	{{/if}}
+	{{#if te}}
+		<ul class="te players">
+			{{#each te}}
+				{{> player-tab}}
+			{{/each}}
+		</ul>
+	{{/if}}
+	{{#if k}}
+		<ul class="k players">
+			{{#each k}}
+				{{> player-tab}}
+			{{/each}}
+		</ul>
+	{{/if}}
+	{{#if def}}
+		<ul class="def players">
+			{{#each def}}
+				{{> player-tab}}
+			{{/each}}
+		</ul>
+	{{/if}}
+</template>
+
+<template name="player-tab">
+	<li id="player-{{_id}}" class="{{drafted}}">
+		<h5>
+            {{last_name}}
+            <span class="first_name">{{first_name}}</span>
+            <span class="team">{{team}}</span>
+            <span class="position">{{pos}}</span>
+        </h5>
+	</li>
+</template>
+
+<template name="teams">
+	<table id="draft_grid" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+			{{#each teams}}
+				{{> team-names}}
+			{{/each}}
+			<tr>
+		</thead>
+		<tbody>
+			<tr>
+			{{#each teams}}
+				{{> draft}}
+			{{/each}}
+			</tr>
+		</tbody>
+	</table>
+</template>
+
+<template name="team-names">
+	<th>{{name}}</th>
+</template>
+
+<template name="draft">
+	<td>
+		<table class="player_grid" cellspacing="0" cellpadding="0">
+			<tbody>
+				{{> draft-players}}
+			</tbody>
+		</table>
+	</td>
+</template>
+
+<template name="draft-players">
+	{{#each players}}
+	<tr>
+		<td>
+            <div class="{{#tolower}}{{pos}}{{/tolower}}">
+    			<h5>{{last_name}} <span class="first_name">{{first_name}}</span></h5>
+    			<span class="team">{{team}}</span> &nbsp;&nbsp;
+    			<span class="position">{{pos}}</span>
+            </div>
+		</td>
+	</tr>
+	{{/each}}
+</template>
